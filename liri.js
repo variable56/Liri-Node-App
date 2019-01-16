@@ -40,6 +40,7 @@ if (command === "concert-this") {
     })
 }
 
+//commands for spotify
 else if (command === "spotify-this-song") {
 
 
@@ -62,6 +63,27 @@ else if (command === "spotify-this-song") {
 
 else if (command === "movie-this") {
 
-
+    axios.get("http://www.omdbapi.com/?t=" + artist + "&y=&plot=short&apikey=trilogy").then(
+        function(response) {
+          // Then we print out the imdbRating
+        //   * Title of the movie.
+        //   * Year the movie came out.
+        //   * IMDB Rating of the movie.
+        //   * Rotten Tomatoes Rating of the movie.
+        //   * Country where the movie was produced.
+        //   * Language of the movie.
+        //   * Plot of the movie.
+        //   * Actors in the movie.
+            // console.log(response.data)
+          console.log("The movie's Title is: " + response.data.Title);
+          console.log("The year the movie came out is: " + response.data.Year);
+          console.log("The IMDB Rating is: " + response.data.imdbRating);
+          console.log("The Rotten Tomatoes rating is: " + response.data.Ratings[1].Value);
+          console.log("The Country the movie was produced: " + response.data.Country);
+          console.log("The movie's Language is: " + response.data.Language);
+          console.log("The Plot of the movie is: " + response.data.Plot);
+          console.log("The Actors/Actresses in the movie are: " + response.data.Actors);
+          console.log("------------------------------------ \n");
 
 }
+    )}

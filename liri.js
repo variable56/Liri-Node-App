@@ -1,24 +1,16 @@
+//create variables for all
 require("dotenv").config();
-
-
 var keys = require("./keys.js");
-
-
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
-
-
-//create variables for all
 var axios = require("axios");
-
 var moment = require("moment");
-
 var command = process.argv[2];
-
 var artist = process.argv[3];
+var fs = require("fs");
 
-//sets up the bandsintown responses 
-if (command === "concert-this") {
+//functions for each command
+function concertThis() {
     axios.get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp").then(function (response) {
 
         if (response.data.length > 0) {
@@ -37,13 +29,10 @@ if (command === "concert-this") {
             }
         }
         else (console.log("Sorry, " + artist + " is not on tour."))
-    })
+    });
 }
 
-//commands for spotify
-else if (command === "spotify-this-song") {
-
-
+function spotifyThis() {
     spotify.search({ type: 'track', query: artist }).then(function (response) {
         // console.log(response.tracks.items[0])
         for (i = 0; i < response.tracks.items.length; i++) {
@@ -61,29 +50,68 @@ else if (command === "spotify-this-song") {
 
 }
 
-else if (command === "movie-this") {
-
+function movieThis() {
     axios.get("http://www.omdbapi.com/?t=" + artist + "&y=&plot=short&apikey=trilogy").then(
-        function(response) {
-          // Then we print out the imdbRating
-        //   * Title of the movie.
-        //   * Year the movie came out.
-        //   * IMDB Rating of the movie.
-        //   * Rotten Tomatoes Rating of the movie.
-        //   * Country where the movie was produced.
-        //   * Language of the movie.
-        //   * Plot of the movie.
-        //   * Actors in the movie.
-            // console.log(response.data)
-          console.log("The movie's Title is: " + response.data.Title);
-          console.log("The year the movie came out is: " + response.data.Year);
-          console.log("The IMDB Rating is: " + response.data.imdbRating);
-          console.log("The Rotten Tomatoes rating is: " + response.data.Ratings[1].Value);
-          console.log("The Country the movie was produced: " + response.data.Country);
-          console.log("The movie's Language is: " + response.data.Language);
-          console.log("The Plot of the movie is: " + response.data.Plot);
-          console.log("The Actors/Actresses in the movie are: " + response.data.Actors);
-          console.log("------------------------------------ \n");
+        function (response) {
+
+            console.log("The movie's Title is: " + response.data.Title);
+            console.log("The year the movie came out is: " + response.data.Year);
+            console.log("The IMDB Rating is: " + response.data.imdbRating);
+            console.log("The Rotten Tomatoes rating is: " + response.data.Ratings[1].Value);
+            console.log("The Country the movie was produced: " + response.data.Country);
+            console.log("The movie's Language is: " + response.data.Language);
+            console.log("The Plot of the movie is: " + response.data.Plot);
+            console.log("The Actors/Actresses in the movie are: " + response.data.Actors);
+            console.log("------------------------------------ \n");
+        })
+
+
+    if (!artist) {
+        axios.get("http://www.omdbapi.com/?t=mr.+nobody&y=&plot=short&apikey=trilogy").then(
+            function (response) {
+
+                console.log("The movie's Title is: " + response.data.Title);
+                console.log("The year the movie came out is: " + response.data.Year);
+                console.log("The IMDB Rating is: " + response.data.imdbRating);
+                console.log("The Rotten Tomatoes rating is: " + response.data.Ratings[1].Value);
+                console.log("The Country the movie was produced: " + response.data.Country);
+                console.log("The movie's Language is: " + response.data.Language);
+                console.log("The Plot of the movie is: " + response.data.Plot);
+                console.log("The Actors/Actresses in the movie are: " + response.data.Actors);
+                console.log("------------------------------------ \n");
+            }
+        )
+    }
+}
+
+function doWhat() {
+
+    fs.readFile("random.txt", "utf8", function (err, data) {
+
+        if (err) {
+            console.log(err)
+        }
+
+        else {
+
+            var dataArray = data.split(",");
+            command = dataArray[0];
+            artist = dataArray[1];
+            console.log(dataArray[1]);
+        }
+
+    });
 
 }
-    )}
+// Switch statement to handle all of the commands the user may input
+switch(command) {
+    case "concert-this": concertThis();
+    break;
+    case "spotify-this-song": spotifyThis();
+    break;
+    case "movie-this": movieThis();
+    break;
+    case "Do what it says": doWhat();
+    
+}
+

@@ -97,9 +97,18 @@ function doWhat() {
             var dataArray = data.split(",");
             command = dataArray[0];
             artist = dataArray[1];
-            console.log(dataArray[1]);
-        }
+           
+            switch(command) {
+                case "concert-this": concertThis();
+                break;
+                case "spotify-this-song": spotifyThis();
+                break;
+                case "movie-this": movieThis();
+                break;
+                case "Do what it says": doWhat();
 
+        }
+    }
     });
 
 }

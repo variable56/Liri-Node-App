@@ -1,5 +1,9 @@
 # Liri-Node-App
 
+# Video Demonstration
+
+https://drive.google.com/file/d/1NIZN38vSRpRP-QHdgEnxbRTKKUQgj_K_/view
+
 # Purpose
 
 This is an app that works similar to "Siri" on ios devices.  It is a bash based program running in node and will do several functions as follows:
@@ -14,6 +18,8 @@ Do what it says - reads an external file called 'random.txt' and will run a comm
 
 # Dependencies
 
+This program utilizes several npm packages to work within node.
+
 This program will require a .env file that will have the following contents
 
 ```
@@ -22,7 +28,7 @@ node_modules
 .env
 ```
 
-it will also require a "keys.js" that stores the spotify key and spotify secret that will be referenced in the liri.js file
+it will also require a "keys.js" that stores the spotify key and spotify secret that will be referenced in the liri.js. Add the keys.js to the .gitignore file if you plan to upload any of your code to the internet.
 
 ```
 console.log('this is loaded');

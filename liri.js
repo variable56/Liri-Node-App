@@ -63,13 +63,12 @@ function movieThis() {
             console.log("The Plot of the movie is: " + response.data.Plot);
             console.log("The Actors/Actresses in the movie are: " + response.data.Actors);
             console.log("------------------------------------ \n");
-        })
+        
 
 
-    if (!artist) {
+    if (response.data.Response === false) {
         axios.get("http://www.omdbapi.com/?t=mr.+nobody&y=&plot=short&apikey=trilogy").then(
             function (response) {
-
                 console.log("The movie's Title is: " + response.data.Title);
                 console.log("The year the movie came out is: " + response.data.Year);
                 console.log("The IMDB Rating is: " + response.data.imdbRating);
@@ -80,8 +79,10 @@ function movieThis() {
                 console.log("The Actors/Actresses in the movie are: " + response.data.Actors);
                 console.log("------------------------------------ \n");
             }
+
         )
     }
+})
 }
 
 function doWhat() {
@@ -97,30 +98,30 @@ function doWhat() {
             var dataArray = data.split(",");
             command = dataArray[0];
             artist = dataArray[1];
-           
-            switch(command) {
+
+            switch (command) {
                 case "concert-this": concertThis();
-                break;
+                    break;
                 case "spotify-this-song": spotifyThis();
-                break;
+                    break;
                 case "movie-this": movieThis();
-                break;
+                    break;
                 case "Do what it says": doWhat();
 
+            }
         }
-    }
     });
 
 }
 // Switch statement to handle all of the commands the user may input
-switch(command) {
+switch (command) {
     case "concert-this": concertThis();
-    break;
+        break;
     case "spotify-this-song": spotifyThis();
-    break;
+        break;
     case "movie-this": movieThis();
-    break;
+        break;
     case "Do what it says": doWhat();
-    
+
 }
 
